@@ -899,6 +899,7 @@ function generateOutputString() {
     case 'arduino': {
       const varQuickArray = [];
       let bytesUsed = 0;
+      let arrayName = $('#arrayName').val()
       // --
       images.each((image) => {
         code = imageToString(image);
@@ -919,8 +920,8 @@ function generateOutputString() {
 
       varQuickArray.sort();
       outputString += `\n// Array of all bitmaps for convenience. (Total bytes used to store images in PROGMEM = ${bytesUsed})\n`;
-      outputString += `const int ${getIdentifier()}ArrayLength = ${varQuickArray.length};\n`;
-      outputString += `const ${getImageType()}* ${getIdentifier()}Array[${varQuickArray.length}] = {\n\t${varQuickArray.join(',\n\t')}\n};\n`;
+      outputString += `const int ${arrayName}${getIdentifier()}ArrayLength = ${varQuickArray.length};\n`;
+      outputString += `const ${getImageType()}* ${arrayName}${getIdentifier()}Array[${arrayName}${getIdentifier()}ArrayLength] = {\n\t${varQuickArray.join(',\n\t')}\n};\n`;
       break;
     }
 
