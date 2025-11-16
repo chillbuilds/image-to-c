@@ -909,17 +909,17 @@ function generateOutputString() {
 
         code = `\t${code.split('\n').join('\n\t')}\n`;
         // const variableCount = images.length() > 1 ? count++ : '';
-        const comment = `// '${image.glyph}', ${image.canvas.width}x${image.canvas.height}px\n`;
+        const comment = `// ${image.canvas.width} x ${image.canvas.height}`;
         bytesUsed += code.split('\n').length * 16; // 16 bytes per line.
 
         const varname = getIdentifier() + image.glyph.replace(/[^a-zA-Z0-9]/g, '_');
         varQuickArray.push(varname);
-        code = `${comment}const ${getImageType()} ${varname} [] PROGMEM = {\n${code}};\n`;
+        code = `const ${getImageType()} ${varname} [] PROGMEM = { ${comment}\n${code}};\n`;
         outputString += code;
       });
 
       varQuickArray.sort();
-      outputString += `\n// Array of all bitmaps for convenience. (Total bytes used to store images in PROGMEM = ${bytesUsed})\n`;
+      outputString += `// total bytes: ${bytesUsed}\n`;
       outputString += `const int ${arrayName}${getIdentifier()}ArrayLength = ${varQuickArray.length};\n`;
       outputString += `const ${getImageType()}* ${arrayName}${getIdentifier()}Array[${arrayName}${getIdentifier()}ArrayLength] = {\n\t${varQuickArray.join(',\n\t')}\n};\n`;
       break;

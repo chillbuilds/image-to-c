@@ -222,7 +222,7 @@ h1{
   background-color: #7067CF;
 }
 
-.generate-button {
+.generate-button:active {
   opacity: 0.3;
 }
 
